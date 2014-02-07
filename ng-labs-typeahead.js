@@ -13,7 +13,7 @@ angular.module('labs.typeahead')
 			$scope.select = function(item) {
 				$scope.$parent[$scope.modelName] = item;
 				$scope.model.$setViewValue(label(item));
-				$scope.$apply();
+				$scope.$apply($attrs.onselect);
 			}
 		},
 		require: '?ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
@@ -24,6 +24,7 @@ angular.module('labs.typeahead')
 		transclude: true,
 		compile: function (tElement, tAttrs) {
 			var rpt = document.createAttribute('ng-repeat');
+			var placeholder = document.createAttribute('placeholder');
 			var mdl = document.createAttribute('ng-model');
 			var load = document.createAttribute('ng-show');
 			var empty = document.createAttribute('ng-show');
@@ -33,6 +34,7 @@ angular.module('labs.typeahead')
 			var listVal ='';
 			var newRepeat = '';
 			var isLoading = tAttrs.isLoading || false;
+			var itemName = listArray[0];
 
 			for (var i = 0; i < listArray.length; i++) {
 				newRepeat += listArray[i] + ' ';
@@ -47,15 +49,17 @@ angular.module('labs.typeahead')
 			mdl.nodeValue = tAttrs.ngModel;
 			load.nodeValue = isLoading;
 			empty.nodeValue = 'filtered.length == 0 && !isLoading';
+			placeholder.nodeValue = tAttrs.placeholder || '';
 
 			tElement.removeClass(tAttrs.class);
+			tElement.find('.labs-typeahead')[0].attributes.setNamedItem(placeholder);
 			tElement.find('.labs-typeahead').addClass(tAttrs.class)[0].attributes.setNamedItem(mdl);
 			tElement.find('li.labs-typeahead-loading')[0].attributes.setNamedItem(load);
 			tElement.find('li.labs-typeahead-empty')[0].attributes.setNamedItem(empty);
 			tElement.find('li.labs-typeahead-list-item')[0].attributes.setNamedItem(rpt);
 			return function (scope, element, attr, ngModel) {
 				
-				scope.input = element.find('input.labs-typeahead');
+				scope.input = element.find('input.labs-typeahead').addClass(attr.class);
 				scope.listEl = element.find('ol.labs-typeahead-list');
 				scope.model = ngModel;
 				scope.modelName = attr.ngModel;
@@ -114,7 +118,7 @@ angular.module('labs.typeahead')
 					//13 == enter 9 == tab
 					if (event.keyCode === 13 || event.keyCode === 9) {
 						//select list
-						scope.select(angular.element(this.currentItem).scope().item);
+						scope.select(angular.element(this.currentItem).scope()[itemName]);
 						
 						scope.listEl.hide();
 					}
@@ -122,7 +126,7 @@ angular.module('labs.typeahead')
 
 				element.find('.labs-typeahead-list').on('click', 'li.labs-typeahead-list-item', function (event) {
 					scope.currentItem = angular.element(this);
-					scope.select(scope.currentItem.scope().item);
+					scope.select(scope.currentItem.scope()[itemName]);
 					scope.listEl.hide();
 				}).on('mouseover', 'li.labs-typeahead-list-item', function (event) {
 					angular.element(scope.currentItem).removeClass('labs-typeahead-selected');
@@ -137,7 +141,7 @@ angular.module('labs.typeahead')
 				element.on('$destroy', function (event) {
 					element.find('labs-typeahead').off();
 					element.find('labs-typeahead-list').off();
-				})
+				});
 			}
 		}
 	};

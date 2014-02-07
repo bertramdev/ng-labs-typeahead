@@ -19,6 +19,7 @@ ol.labs-typeahead-list {
 
     list-style: none;
 
+    z-index: 1000;
 }
 
 .labs-typeahead-list > li {
