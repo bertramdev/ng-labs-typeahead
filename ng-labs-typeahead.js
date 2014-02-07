@@ -71,8 +71,11 @@ angular.module('labs.typeahead')
 				});
 				element.find('.labs-typeahead').on('keydown', $.proxy(function (event) {
 					angular.element(this.currentItem).removeClass('labs-typeahead-selected');
-					if (scope.filtered.length == 0) {
+					if (scope.filtered.length === 0) {
 						return;
+					}
+					if(scope.filtered.length === 1) {
+						this.currentItem = angular.element(this.listEl.children()[2]);
 					}
 					//27 == escape
 					if (event.keyCode === 27) {
