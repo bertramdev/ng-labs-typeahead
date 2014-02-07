@@ -1,0 +1,31 @@
+typeahead {
+    display:block;
+    position:relative;
+}
+ol.labs-typeahead-list {
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin-top: -5px;
+
+    border:1px solid #66afe9;
+    border-radius: 0 0 4px 4px;
+
+    background-color: white;
+
+    padding: 0;
+    max-height: 350px;
+    overflow: auto;
+
+    list-style: none;
+
+}
+
+.labs-typeahead-list > li {
+    padding: 5px 10px;
+}
+
+.labs-typeahead-list .labs-typeahead-selected {
+    background-color: #66afe9;
+    color:#fff;
+}
