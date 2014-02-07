@@ -42,7 +42,7 @@ angular.module('labs.typeahead')
 			}
 			newRepeat += ')';
 
-			//parse repeat sentence filteredItems  = (items | filter:keyword)
+			//parse repeat sentence filteredItems = (items | filter:keyword)
 			rpt.nodeValue = newRepeat;
 			mdl.nodeValue = tAttrs.ngModel;
 			load.nodeValue = isLoading;
