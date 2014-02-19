@@ -10,7 +10,7 @@
     font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="typeahead-icon-"], [class*=" typeahead-icon-"] {
     font-family: 'labs-typeahead';
     speak: none;
     font-style: normal;
