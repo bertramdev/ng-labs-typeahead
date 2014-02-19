@@ -18,7 +18,7 @@ angular.module('labs.typeahead')
 		},
 		require: '?ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-		template: '<input type="text" class="labs-typeahead"><ol class="labs-typeahead-list" style="display:none;"><li class="labs-typeahead-loading">Loading!</li><li class="labs-typeahead-empty">No Results!</li><li class="labs-typeahead-list-item" ng-transclude></li></ol>',
+		template: '<input type="text" class="labs-typeahead"><span class="labs-typeahead-dropdown-symbol"><i class="icon-arrow-down"></i></span><ol class="labs-typeahead-list" style="display:none;"><li class="labs-typeahead-loading">Loading!</li><li class="labs-typeahead-empty">No Results!</li><li class="labs-typeahead-list-item" ng-transclude></li></ol>',
 		// templateUrl: '',
 		// replace: true,
 		transclude: true,
